@@ -47,7 +47,6 @@ const CARD_ROTATION_KEY_STEP_DEGREES = 3;
 const WHEEL_ROTATION_DEGREES_PER_PIXEL = 0.15;
 const MAX_WHEEL_ROTATION_DEGREES = 15;
 const NUMERIC_RE = /^\d+$/;
-// The backend's pitch prompts (paying a cost uses CHOOSEHANDCANCEL, not P).
 const PITCH_PHASES = new Set(['P', 'CHOOSEHANDCANCEL', 'PAYGOLDORPITCH']);
 
 const preventContextMenu = (event: React.MouseEvent) => event.preventDefault();
@@ -483,9 +482,6 @@ function PlayerHand() {
 
   const isDragActive = dragPlayState !== 'idle' || dragStartOrderIds !== null;
   const activeHoveredCardId = isDragActive ? null : hoveredCardId;
-  // Keep the whole hand raised while pitching, hovered or not. A card played
-  // from the raised hand also holds it up until the server replies, so a
-  // pitch prompt that follows doesn't drop and re-raise the hand.
   const [isHoldingLiftForPlay, setIsHoldingLiftForPlay] = useState(false);
   const isPlayPending = isPlayInFlight || isAwaitingPlayState;
   const isPitching = !!turnPhase && PITCH_PHASES.has(turnPhase);
